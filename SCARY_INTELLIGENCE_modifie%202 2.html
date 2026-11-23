@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080611">
+<title>SCARY INTELLIGENCE</title>
+<style>
+:root{--bg:#080611;--panel:#100c20;--panel2:#17102b;--line:#302052;--purple:#8b35ff;--purple2:#b16cff;--text:#f6f1ff;--muted:#aaa0c3;--green:#38df8b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer}
+.hidden{display:none!important}
+.landing{min-height:100vh;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#25104d 0,transparent 42%),radial-gradient(ellipse at 0% 70%,#32106b88 0,transparent 38%),radial-gradient(ellipse at 100% 70%,#32106b77 0,transparent 38%),#080611}
+.landing:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#a55bff0c 1px,transparent 1px),linear-gradient(90deg,#a55bff0c 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to bottom,#000,transparent 90%);pointer-events:none}
+.topbar{height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,70px);border-bottom:1px solid #ffffff12;position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:11px;font-size:20px;font-weight:850;letter-spacing:.3px}.brandmark{color:var(--purple2);font-size:30px;text-shadow:0 0 20px var(--purple)}
+.brand em{font-style:normal;color:#b36aff}
+.top-actions{display:flex;gap:10px;align-items:center}
+.ghost,.primary,.secondary{border:1px solid #5e3295;border-radius:12px;padding:11px 17px;color:white;background:#170d2b}
+.primary{background:linear-gradient(100deg,#7b20f5,#9d3cff);border:1px solid #b36aff;box-shadow:0 8px 30px #8b35ff55;font-weight:750}
+.primary:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.hero{position:relative;z-index:1;max-width:880px;margin:0 auto;text-align:center;padding:clamp(75px,12vh,125px) 22px 70px}
+.kicker{display:inline-flex;gap:8px;align-items:center;border:1px solid #6637a0;background:#1b1030;color:#d3b6ff;border-radius:30px;padding:8px 14px;font-size:13px}
+h1{font-size:clamp(42px,8vw,78px);line-height:.98;letter-spacing:-2.5px;margin:28px 0 18px;font-weight:900}
+h1 span{display:block;color:#a75aff;text-shadow:0 0 32px #8b35ff55}
+.lead{font-size:clamp(16px,2vw,20px);color:#c0b6d4;line-height:1.65;max-width:650px;margin:0 auto 28px}
+.features{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:26px 0 34px}
+.feature{border:1px solid #38215a;background:#100a20c9;border-radius:30px;padding:9px 15px;color:#d7c9ed;font-size:14px}
+.hero-cta{min-width:min(100%,410px);padding:19px 24px;border-radius:16px;font-size:17px}
+.hero-note{color:#8f84a5;font-size:12px;margin-top:16px}
+.section{max-width:1000px;margin:0 auto;padding:20px 22px 75px;position:relative;z-index:1}
+.section h2{font-size:21px;margin:0 0 18px}
+.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.benefit{background:#110b20d9;border:1px solid #2b1b43;border-radius:16px;padding:20px}
+.benefit .ico{font-size:24px;color:#b16cff}.benefit strong{display:block;margin:9px 0 5px}.benefit p{color:var(--muted);font-size:13px;margin:0;line-height:1.5}
+footer{text-align:center;border-top:1px solid #ffffff12;padding:20px;color:#796e8f;font-size:12px;position:relative;z-index:1}
+.app{min-height:100vh;background:radial-gradient(ellipse at 90% 0%,#26104455,transparent 38%),#080611}
+.appbar{height:72px;border-bottom:1px solid #2b1b43;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#0c0815eF;position:sticky;top:0;z-index:5}
+.app-layout{display:grid;grid-template-columns:245px 1fr;min-height:calc(100vh - 72px)}
+.sidebar{padding:20px 14px;border-right:1px solid #2b1b43;background:#0b0814}
+.nav-label{font-size:10px;color:#75698d;letter-spacing:1.5px;padding:12px}
+.navbtn{width:100%;border:0;background:transparent;color:#bcb2ce;text-align:left;padding:12px 13px;border-radius:11px;margin:3px 0;display:flex;align-items:center;gap:12px}
+.navbtn:hover,.navbtn.active{background:linear-gradient(90deg,#4c168f66,#26133e);color:#fff}
+.navbtn.active{box-shadow:inset 3px 0 #a95cff}
+.content{padding:30px;max-width:1200px;width:100%;margin:0 auto}
+.page{display:none}.page.active{display:block}
+.page-title{font-size:27px;margin:0 0 6px}.page-sub{color:var(--muted);margin:0 0 24px;font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+.card{background:linear-gradient(145deg,#151026,#0e0a18);border:1px solid #30204a;border-radius:16px;padding:19px}
+.stat{font-size:28px;font-weight:800;margin-top:8px}.muted{color:var(--muted);font-size:13px}
+.welcome{padding:28px;text-align:center;background:radial-gradient(ellipse at top,#51208a66,transparent 70%),#110b20}
+.welcome .crown{font-size:34px;color:#b16cff}.welcome h2{margin:8px 0}.status{color:var(--green);font-size:12px}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+label{display:block;color:#bcb2ce;font-size:12px;margin-bottom:7px}
+input{width:100%;padding:12px 13px;border-radius:10px;border:1px solid #3b2a56;background:#090711;color:white;outline:none}
+input:focus{border-color:#a95cff;box-shadow:0 0 0 3px #8b35ff22}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.result .actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:9px}.result .actions a{text-align:center}
+.secondary{background:#171024;border-color:#3b2a56}
+.notice,.result{border:1px solid #3b2a56;border-radius:11px;padding:13px;margin-top:15px;color:#bdb1d0;font-size:13px;background:#0d0918}
+.result{white-space:pre-wrap}
+.tilegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.tile{border:1px solid #30204a;border-radius:15px;padding:20px;background:#110b20;color:white;text-align:left}
+.tile:hover{border-color:#9a52ef;background:#1a1030}
+.tile b{display:block;margin:8px 0 4px}
+.menu-toggle{display:none}
+@media(max-width:760px){
+ .topbar{height:66px;padding:0 16px}.brand{font-size:17px}.top-actions .ghost{display:none}
+ .hero{padding:70px 20px 55px}h1{letter-spacing:-1.5px}.benefits{grid-template-columns:1fr}.section{padding-bottom:45px}
+ .appbar{height:64px;padding:0 15px}.app-layout{display:block}.sidebar{display:none;position:fixed;z-index:10;top:64px;bottom:0;left:0;width:260px;box-shadow:15px 0 40px #0009}
+ .sidebar.open{display:block}.menu-toggle{display:inline-block}.content{padding:22px 15px}.cards{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.tilegrid{grid-template-columns:1fr}
+}
+
+.auth-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(ellipse at 50% 20%,#32145b 0,transparent 48%),#080611}
+.auth-card{width:min(100%,760px);border:1px solid #422866;background:linear-gradient(145deg,#171026,#0c0815);border-radius:22px;padding:clamp(22px,4vw,38px);box-shadow:0 24px 80px #0008}
+.auth-logo{text-align:center;margin-bottom:24px}.auth-logo .brand{justify-content:center;font-size:21px}
+.auth-title{text-align:center;font-size:27px;margin:0 0 8px}.auth-sub{text-align:center;color:#aaa0c3;font-size:14px;line-height:1.5;margin:0 0 24px}
+.auth-field{margin:14px 0}.auth-field input{margin-top:7px}
+.auth-submit{width:100%;padding:14px;margin-top:10px}
+.auth-switch{text-align:center;color:#aaa0c3;font-size:13px;margin-top:19px}
+.auth-switch button{border:0;background:none;color:#c18aff;font-weight:700;padding:4px}
+.auth-message{font-size:13px;color:#ffb6c1;min-height:20px;margin-top:12px;text-align:center}
+.auth-foot{text-align:center;color:#776b8d;font-size:11px;margin-top:18px;line-height:1.5}.auth-about{border-top:1px solid #352348;margin-top:30px;padding-top:22px;color:#aaa0c3;line-height:1.65;font-size:14px}.auth-about h2{color:#f4efff;font-size:18px;margin:0 0 8px}.auth-about p{margin:7px 0}.auth-about .creator{color:#c18aff;font-weight:700}.auth-title{margin-top:8px}
+
+
+.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+.settings-card h3{margin-top:0}.settings-card label{margin-top:15px}.settings-select{width:100%;padding:12px 13px;border-radius:10px;border:1px solid #3b2a56;background:#090711;color:white;outline:none}
+.settings-action{margin-top:12px}.account-line{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #30204a;font-size:13px}.account-line strong{text-align:right}.settings-feedback{min-height:19px;margin-top:10px;color:var(--green);font-size:13px}
+@media(max-width:760px){.settings-grid{grid-template-columns:1fr}}
+
+
+/* Refonte visuelle : conserver les fonctions et l'identité SCARY */
+:root{--surface-glass:rgba(17,11,32,.82);--soft-glow:0 18px 55px rgba(0,0,0,.28)}
+body{background-image:radial-gradient(ellipse at 12% 0%,rgba(139,53,255,.10),transparent 34%),radial-gradient(ellipse at 100% 80%,rgba(95,40,160,.08),transparent 35%)}
+button{transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--purple2);outline-offset:3px}
+.landing{background:radial-gradient(ellipse at 50% 38%,#32145b 0,transparent 44%),radial-gradient(ellipse at 0% 75%,#32106b66 0,transparent 38%),radial-gradient(ellipse at 100% 70%,#32106b55 0,transparent 38%),#080611}
+.topbar{backdrop-filter:blur(16px);background:#08061155}
+.brand{letter-spacing:.65px}.brandmark{display:inline-grid;place-items:center;width:38px;height:38px;border:1px solid #a95cff55;border-radius:12px;background:linear-gradient(145deg,#a95cff22,#5b24a122);font-size:23px}
+.kicker{box-shadow:0 0 35px #8b35ff18;letter-spacing:.2px}
+.hero h1{text-wrap:balance}.lead{max-width:620px}
+.benefit{transition:transform .2s ease,border-color .2s ease,background .2s ease}.benefit:hover{transform:translateY(-4px);border-color:#7542ad;background:#17102a}
+.auth-screen{background:radial-gradient(ellipse at 50% 8%,#3b1768 0,transparent 46%),radial-gradient(ellipse at 10% 100%,#25104466,transparent 38%),#080611}
+.auth-card{box-shadow:0 30px 100px #0009,0 0 0 1px #ffffff08 inset;backdrop-filter:blur(18px)}
+.auth-title{letter-spacing:-.8px}.auth-field input{height:48px}.auth-submit{height:50px}
+.app{background:radial-gradient(ellipse at 90% 0%,#35145c44,transparent 34%),#080611}
+.appbar{height:76px;padding:0 clamp(18px,3vw,38px);background:rgba(10,7,18,.88);backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12;box-shadow:0 8px 30px #0002}
+.appbar .brand{font-size:17px}.appbar .status{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border:1px solid #38df8b22;border-radius:30px;background:#38df8b0b;letter-spacing:.2px}
+.app-layout{grid-template-columns:258px minmax(0,1fr)}
+.sidebar{padding:24px 15px;background:rgba(10,7,19,.94);border-right:1px solid #ffffff10;box-shadow:12px 0 45px #00012}
+.nav-label{font-weight:800;letter-spacing:1.7px;color:#76698d;padding:14px 12px 10px}
+.navbtn{position:relative;min-height:44px;padding:11px 14px;border:1px solid transparent;color:#bdb3d0;font-size:13px;font-weight:600;letter-spacing:.1px}
+.navbtn:hover{background:#ffffff08;border-color:#ffffff0c;color:#fff;transform:translateX(2px)}
+.navbtn.active{background:linear-gradient(100deg,#7b35c72b,#25143d);border-color:#9c5ae533;color:#fff;box-shadow:inset 3px 0 var(--purple2),0 5px 18px #0002}
+.content{max-width:1320px;padding:clamp(22px,3vw,42px)}
+.page-title{font-size:clamp(25px,3vw,32px);font-weight:850;letter-spacing:-.8px;margin-bottom:8px}
+.page-sub{max-width:760px;line-height:1.65;color:#a99fbc;margin-bottom:28px}
+.card,.welcome,.settings-card{border:1px solid #ffffff12;border-radius:18px;background:linear-gradient(145deg,rgba(25,17,42,.96),rgba(14,10,24,.96));box-shadow:var(--soft-glow)}
+.card{padding:22px}.card h3{font-size:16px;letter-spacing:.1px;margin:0 0 14px}
+.cards{gap:16px;margin:20px 0}.cards .card{position:relative;overflow:hidden;min-height:112px}.cards .card:after{content:"";position:absolute;width:100px;height:100px;right:-36px;top:-42px;border-radius:50%;background:var(--purple);opacity:.08;filter:blur(3px)}
+.stat{font-size:30px;letter-spacing:-.7px}.welcome{padding:34px 26px;background:radial-gradient(ellipse at 50% 0%,#7636b933,transparent 68%),linear-gradient(145deg,#19102b,#100b1b)}.welcome .crown{display:inline-grid;place-items:center;width:58px;height:58px;border-radius:18px;background:#a95cff16;border:1px solid #a95cff30}
+.tilegrid{gap:13px}.tile{min-height:112px;border-radius:15px;border:1px solid #ffffff12;background:linear-gradient(145deg,#191128,#110c1d);padding:18px;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}.tile:hover{transform:translateY(-3px);border-color:#9651d4;box-shadow:0 12px 28px #0004;background:linear-gradient(145deg,#211438,#140e22)}.tile b{font-size:14px;letter-spacing:.1px}.tile .muted{line-height:1.5}
+.primary{border-radius:11px;background:linear-gradient(110deg,#7628e7,#a34df5);box-shadow:0 7px 22px #8b35ff2c}.primary:hover{box-shadow:0 10px 28px #8b35ff4a;filter:brightness(1.08);transform:translateY(-2px)}
+.secondary,.ghost{border-radius:11px;background:#ffffff08;border-color:#ffffff1a}.secondary:hover,.ghost:hover{border-color:#a95cff77;background:#a95cff12;transform:translateY(-1px)}
+input,.settings-select{min-height:46px;border-radius:11px;background:#090711;border-color:#ffffff1b;transition:border-color .18s ease,box-shadow .18s ease}input::placeholder{color:#6f657f}
+label{font-weight:650;letter-spacing:.15px;color:#c7bdd8}
+.notice,.result{border-radius:13px;border-color:#ffffff15;background:#0c0915;color:#bdb3d0;line-height:1.6;padding:15px}
+.settings-grid{gap:16px}.settings-card{padding:23px}.settings-card h3{font-size:17px}.account-line{padding:13px 0;border-color:#ffffff12}.settings-feedback{font-weight:650}
+footer{border-color:#ffffff10;background:#08061155}
+@media(max-width:760px){.appbar{height:66px}.app-layout{display:block}.sidebar{top:66px;width:min(290px,86vw);background:rgba(12,8,21,.98);backdrop-filter:blur(18px)}.content{padding:22px 15px 36px}.card{padding:18px}.welcome{padding:27px 18px}.appbar .brand{font-size:14px}.appbar .brandmark{width:32px;height:32px}.appbar .status{font-size:11px;padding:7px 9px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+</style>
+</head>
+<body>
+
+<div id="authScreen" class="auth-screen">
+ <div class="auth-card">
+  <div class="auth-logo"><div class="brand"><span class="brandmark">✦</span><span>SCARY <em>INTELLIGENCE</em></span></div></div>
+  <h1 class="auth-title" id="authTitle">Crée un compte pour commencer</h1>
+  <p class="auth-sub" id="authSubtitle">Inscris-toi avec un pseudo et un mot de passe pour accéder à ton espace.</p>
+  <form id="authForm">
+   <div class="auth-field"><label for="authUsername">Pseudo</label><input id="authUsername" autocomplete="username" minlength="3" maxlength="20" required placeholder="Ton pseudo"></div>
+   <div class="auth-field"><label for="authPassword">Mot de passe</label><input id="authPassword" type="password" autocomplete="new-password" minlength="4" maxlength="16" required placeholder="4 à 16 caractères"></div>
+   <button class="primary auth-submit" id="authSubmit" type="submit">Créer mon compte →</button>
+  </form>
+  <div class="auth-message" id="authMessage" aria-live="polite"></div>
+  <div class="auth-switch"><span id="authSwitchText">Tu as déjà un compte ?</span> <button id="authSwitch" type="button">Se connecter</button></div>
+  <div class="auth-foot">Aucun email demandé · Pseudo et mot de passe de 4 à 16 caractères.</div>
+  <section class="auth-about"><h2>À propos de SCARY INTELLIGENCE</h2><p>SCARY INTELLIGENCE rassemble dans un même espace des outils pour consulter des profils publics, vérifier le format d’un identifiant Discord et organiser ses propres informations et notes.</p><p>Le site ne permet pas d’accéder aux données privées des comptes ni de contourner leurs paramètres de confidentialité.</p><p class="creator">Un projet indépendant créé par SCARY.</p></section>
+ </div>
+</div>
+
+<div id="landing" class="landing hidden">
+ <header class="topbar">
+  <div class="brand"><span class="brandmark">✦</span><span>SCARY <em>INTELLIGENCE</em></span></div>
+  <div class="top-actions"><button class="ghost" id="discordInfo">◉ Discord</button><button class="primary" id="headerStart">Commencer</button></div>
+ </header>
+ <main>
+  <section class="hero">
+   <div class="kicker">✓ &nbsp; Espace de recherche publique</div>
+   <h1>SCARY <span>INTELLIGENCE</span></h1>
+   <p class="lead">Un espace simple pour organiser tes recherches sur les profils publics et gérer tes notes au même endroit.</p>
+   <div class="features"><span class="feature">✦ Interface rapide</span><span class="feature">⬡ Notes privées</span><span class="feature">◎ Profils publics</span></div>
+   <button class="primary hero-cta" id="start">➤ &nbsp; Commencer gratuitement &nbsp; →</button>
+   <div class="hero-note">Sans installation · Tableau de bord accessible en un clic</div>
+  </section>
+  <section class="section">
+   <h2>Un espace clair, tous tes outils au même endroit</h2>
+   <div class="benefits">
+    <div class="benefit"><div class="ico">⌕</div><strong>Recherche de profils publics</strong><p>Accès aux pages publiques des plateformes, sans contourner leurs réglages de confidentialité.</p></div>
+    <div class="benefit"><div class="ico">▣</div><strong>Notes personnelles</strong><p>Organise tes propres notes directement dans ton navigateur.</p></div>
+    <div class="benefit"><div class="ico">◇</div><strong>Interface simple</strong><p>Retrouve tes rubriques dans un tableau de bord unique.</p></div>
+   </div>
+  </section>
+ </main>
+ <footer>SCARY INTELLIGENCE · Espace personnel de démonstration</footer>
+</div>
+
+<div id="app" class="app hidden">
+ <header class="appbar">
+  <div style="display:flex;align-items:center;gap:12px"><button class="secondary menu-toggle" id="menuToggle">☰</button><div class="brand"><span class="brandmark">✦</span><span>SCARY <em>INTELLIGENCE</em></span></div></div>
+  <div style="display:flex;align-items:center;gap:14px"><span class="status">● En ligne</span><button class="secondary" id="backHome">Quitter</button></div>
+ </header>
+ <div class="app-layout">
+  <aside class="sidebar" id="sidebar">
+   <div class="nav-label">ESPACE DE TRAVAIL</div>
+   <button class="navbtn active" data-page="home">⌂ Accueil</button>
+   <button class="navbtn" data-page="personal">♙ Personal Info</button>
+   <button class="navbtn" data-page="social">◎ Réseaux sociaux</button>
+   <button class="navbtn" data-page="discord">◉ Discord ID</button>
+    <button class="navbtn" data-page="fivem">▣ FiveM API</button>
+    <button class="navbtn" data-page="ip">⌖ Adresse IP</button>
+   <button class="navbtn" data-page="search">⌕ Recherche avancée</button>
+   <div class="nav-label">APPLICATION</div>
+   <button class="navbtn" data-page="settings">⚙ Paramètres</button>
+   <button class="navbtn" data-page="about">ⓘ À propos</button>
+  </aside>
+  <main class="content">
+   <section class="page active" id="page-home">
+    <h1 class="page-title">Tableau de bord</h1><p class="page-sub">Bienvenue dans ton espace SCARY INTELLIGENCE.</p>
+    <div class="card welcome"><div class="crown">♛</div><h2>Bienvenue sur SCARY !</h2><div class="muted">Choisis une rubrique dans le menu pour commencer.</div></div>
+    <div class="cards"><div class="card"><div class="muted">Outils disponibles</div><div class="stat">05</div></div><div class="card"><div class="muted">État du service</div><div class="stat status">En ligne</div></div><div class="card"><div class="muted">Recherches locales</div><div class="stat" id="count">00</div></div></div>
+    <div class="card"><h3>Accès rapide</h3><div class="tilegrid"><button class="tile" data-goto="personal">♙<b>Personal Info</b><span class="muted">Gérer tes notes locales</span></button><button class="tile" data-goto="social">◎<b>Réseaux sociaux</b><span class="muted">Ouvrir des profils publics</span></button><button class="tile" data-goto="discord">◉<b>Discord ID</b><span class="muted">Vérifier le format d'un ID</span></button><button class="tile" data-goto="search">⌕<b>Recherche avancée</b><span class="muted">Accéder aux outils publics</span></button></div></div>
+   </section>
+   <section class="page" id="page-personal">
+    <h1 class="page-title">Personal Info</h1>
+    <p class="page-sub">Renseigne les informations dans des champs simples. La recherche publique utilise uniquement le nom et le prénom.</p>
+    <div class="card">
+     <h3>Informations</h3>
+     <div class="formgrid">
+      <div><label for="pi-nom">Nom</label><input id="pi-nom" autocomplete="family-name" placeholder="Nom"></div>
+      <div><label for="pi-prenom">Prénom</label><input id="pi-prenom" autocomplete="given-name" placeholder="Prénom"></div>
+      <div><label for="pi-ville">Ville</label><input id="pi-ville" autocomplete="address-level2" placeholder="Ville"></div>
+      <div><label for="pi-postal">Code postal</label><input id="pi-postal" inputmode="numeric" autocomplete="postal-code" placeholder="Code postal"></div>
+      <div><label for="pi-tel">Numéro de téléphone</label><input id="pi-tel" type="tel" autocomplete="tel" placeholder="Numéro de téléphone"></div>
+      <div><label for="pi-age">Âge</label><input id="pi-age" type="number" min="1" max="120" placeholder="Âge"></div>
+      <div><label for="pi-date">Date de naissance</label><input id="pi-date" type="date"></div>
+      <div><label for="pi-email">Email</label><input id="pi-email" type="email" autocomplete="email" placeholder="Adresse email"></div>
+     </div>
+     <div style="margin-top:16px">
+      <label for="pi-handle">Ou pseudo public (ex. @pseudo)</label>
+      <input id="pi-handle" maxlength="40" placeholder="@pseudo public">
+     </div>
+     <div class="actions">
+      <button type="button" class="primary" id="searchPersonal">Rechercher le nom</button>
+      <button type="button" class="primary" id="searchHandle">Ouvrir les profils avec ce pseudo</button>
+      <button type="button" class="secondary" id="clearPersonal">Effacer</button>
+     </div>
+     <div class="result" id="personalResult">Entre un nom et un prénom, puis lance une recherche sur les sites publics.</div>
+    </div>
+    <div class="notice">Pour protéger la vie privée, les recherches externes utilisent uniquement le nom et le prénom. Le téléphone, l’email, la date de naissance, l’âge, la ville et le code postal ne sont jamais envoyés dans les liens de recherche. Utilise ces champs uniquement pour tes propres informations ou avec l’accord de la personne.</div>
+   </section>
+   <section class="page" id="page-social">
+    <h1 class="page-title">Réseaux sociaux</h1><p class="page-sub">Ouvre directement les pages publiques d'un compte.</p>
+    <div class="card"><div class="formgrid"><div><label for="platform">Plateforme</label><select id="platform" aria-label="Choisir une plateforme" style="width:100%;padding:12px 13px;border-radius:10px;border:1px solid #3b2a56;background:#090711;color:white"><option value="">Choisir une plateforme</option><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option><option value="YouTube">YouTube</option><option value="X">X / Twitter</option><option value="Twitch">Twitch</option><option value="Reddit">Reddit</option><option value="Pinterest">Pinterest</option><option value="Snapchat">Snapchat</option><option value="Facebook">Facebook</option><option value="GitHub">GitHub</option><option value="Telegram">Telegram</option></select></div><div><label for="handle">Nom d'utilisateur public</label><input id="handle" placeholder="@pseudo"></div></div><div class="actions"><button class="primary" id="openSocial">Ouvrir le profil public</button></div><div class="result" id="socialResult">Le site ouvrira le profil public sur la plateforme choisie.</div></div>
+   </section>
+   <section class="page" id="page-discord">
+    <h1 class="page-title">Discord ID</h1><p class="page-sub">Contrôle du format d'un identifiant numérique.</p>
+    <div class="card"><label for="discordId">Identifiant Discord</label><input id="discordId" inputmode="numeric" maxlength="24" placeholder="Identifiant numérique Discord"><div class="actions"><button type="button" class="primary" id="checkDiscord">Vérifier le format</button><button type="button" class="secondary" id="openDiscord">Ouvrir le profil</button></div><div class="result" id="discordResult">En attente d'un identifiant.</div><div class="notice">La vérification contrôle seulement le format et ne confirme pas l'existence du compte. L'API Discord exige une application et une authentification. Ne colle jamais de token secret dans cette page.</div></div>
+    <div class="card"><h3>API Discord</h3><p class="muted">Documentation officielle pour créer une application, configurer OAuth2 et utiliser l'API.</p><a class="primary" style="display:inline-block;text-decoration:none" href="https://discord.com/developers/docs/intro" target="_blank" rel="noopener noreferrer">Documentation API Discord ↗</a> <a class="secondary" style="display:inline-block;text-decoration:none" href="https://discord.com/developers/applications" target="_blank" rel="noopener noreferrer">Portail développeur ↗</a></div>
+   </section>
+   <section class="page" id="page-fivem">
+    <h1 class="page-title">FiveM API</h1><p class="page-sub">Consulte les informations publiques d'un serveur avec son code CFX.</p>
+    <div class="card"><label for="fivemCode">Code serveur CFX ou lien de connexion</label><input id="fivemCode" maxlength="160" placeholder="Code ou cfx.re/join/…"><div class="actions"><button type="button" class="primary" id="openFiveM">Ouvrir le serveur</button><button type="button" class="secondary" id="openFiveMApi">Consulter l'API serveur</button></div><div class="result" id="fivemResult">Entre le code public d'un serveur. Certaines informations peuvent être indisponibles.</div></div>
+    <div class="card"><h3>API FiveM</h3><p class="muted">La réponse dépend des données publiques CFX.re. Elle ne donne pas accès aux données privées des joueurs.</p><a class="primary" style="display:inline-block;text-decoration:none" href="https://servers.fivem.net/" target="_blank" rel="noopener noreferrer">Liste des serveurs FiveM ↗</a></div>
+   </section>
+      <section class="page" id="page-ip">
+    <h1 class="page-title">Adresse IP</h1>
+    <p class="page-sub">Consulte une zone géographique approximative à partir d’une adresse IP que tu es autorisé à vérifier.</p>
+    <div class="card">
+     <label for="ipAddress">Adresse IP (IPv4 ou IPv6)</label>
+     <input id="ipAddress" inputmode="url" maxlength="64" placeholder="Ex. 8.8.8.8">
+     <div class="actions">
+      <button type="button" class="primary" id="lookupIp">Localiser approximativement</button>
+      <button type="button" class="secondary" id="clearIp">Effacer</button>
+     </div>
+     <div class="result" id="ipResult">La recherche affiche au mieux une ville ou une région, jamais une adresse personnelle exacte.</div>
+     <div id="ipMapLink" style="margin-top:12px"></div>
+    </div>
+    <div class="card">
+     <h3>Rechercher une ville sur Google Maps</h3>
+     <label for="ipCity">Ville ou lieu</label>
+     <input id="ipCity" maxlength="100" placeholder="Ex. Bruxelles">
+     <div class="actions"><button type="button" class="primary" id="searchIpCity">Ouvrir dans Google Maps</button></div>
+    </div>
+    <div class="notice">Confidentialité : la recherche IP transmet l’adresse saisie au service tiers ipapi.co. Une IP ne permet pas de retrouver fiablement le prénom d’une personne, et la localisation est approximative (souvent la ville ou la région du fournisseur d’accès). N’utilise cette fonction que pour une IP que tu es autorisé à vérifier.</div>
+   </section>
+      <section class="page" id="page-search">
+    <h1 class="page-title">Recherche avancée</h1><p class="page-sub">Raccourcis vers des recherches ouvertes et non sensibles.</p>
+    <div class="tilegrid"><button class="tile" data-url="https://www.google.com/">⌕<b>Recherche web</b><span class="muted">Rechercher des informations générales publiques</span></button><button class="tile" data-url="https://www.tiktok.com/">♪<b>TikTok</b><span class="muted">Consulter les contenus publics</span></button><button class="tile" data-url="https://www.instagram.com/">◎<b>Instagram</b><span class="muted">Consulter les pages publiques</span></button><button class="tile" data-url="https://www.youtube.com/">▶<b>YouTube</b><span class="muted">Consulter les chaînes publiques</span></button></div>
+   </section>
+   <section class="page" id="page-settings">
+    <h1 class="page-title" data-fr="Paramètres" data-en="Settings">Paramètres</h1>
+    <p class="page-sub" data-fr="Personnalise ton espace et gère les informations de ton compte." data-en="Customize your workspace and manage your account information.">Personnalise ton espace et gère les informations de ton compte.</p>
+    <div class="settings-grid">
+     <div class="card settings-card">
+      <h3 data-fr="Apparence" data-en="Appearance">Apparence</h3>
+      <p class="muted" data-fr="Choisis la couleur principale de l'interface." data-en="Choose the main interface color.">Choisis la couleur principale de l'interface.</p>
+      <label for="themeColor" data-fr="Couleur du thème" data-en="Theme color">Couleur du thème</label>
+      <select id="themeColor" class="settings-select"><option value="purple">Violet</option><option value="blue">Bleu</option><option value="red">Rouge</option><option value="green">Vert</option><option value="pink">Rose</option></select>
+      <label for="languageSelect" data-fr="Langue" data-en="Language">Langue</label>
+      <select id="languageSelect" class="settings-select"><option value="fr">Français</option><option value="en">English</option></select>
+      <div class="notice" data-fr="Tes préférences sont enregistrées dans ce navigateur." data-en="Your preferences are saved in this browser.">Tes préférences sont enregistrées dans ce navigateur.</div>
+     </div>
+     <div class="card settings-card">
+      <h3 data-fr="Informations du compte" data-en="Account information">Informations du compte</h3>
+      <div class="account-line"><span class="muted" data-fr="Pseudo actuel" data-en="Current username">Pseudo actuel</span><strong id="settingsUsername">—</strong></div>
+      <div class="account-line"><span class="muted" data-fr="Stockage du compte" data-en="Account storage">Stockage du compte</span><strong data-fr="Ce navigateur uniquement" data-en="This browser only">Ce navigateur uniquement</strong></div>
+      <label for="newUsername" data-fr="Nouveau pseudo" data-en="New username">Nouveau pseudo</label><input id="newUsername" maxlength="20" placeholder="3 à 20 caractères" autocomplete="username">
+      <button class="secondary settings-action" id="changeUsername" type="button" data-fr="Modifier le pseudo" data-en="Update username">Modifier le pseudo</button>
+      <div class="settings-feedback" id="usernameFeedback" aria-live="polite"></div>
+     </div>
+     <div class="card settings-card">
+      <h3 data-fr="Sécurité et mot de passe" data-en="Security and password">Sécurité et mot de passe</h3>
+      <label for="currentPassword" data-fr="Mot de passe actuel" data-en="Current password">Mot de passe actuel</label><input id="currentPassword" type="password" autocomplete="current-password" maxlength="16">
+      <label for="newPassword" data-fr="Nouveau mot de passe" data-en="New password">Nouveau mot de passe</label><input id="newPassword" type="password" autocomplete="new-password" minlength="4" maxlength="16" placeholder="4 à 16 caractères">
+      <label for="confirmPassword" data-fr="Confirmer le nouveau mot de passe" data-en="Confirm new password">Confirmer le nouveau mot de passe</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="4" maxlength="16">
+      <button class="primary settings-action" id="changePassword" type="button" data-fr="Changer le mot de passe" data-en="Change password">Changer le mot de passe</button>
+      <div class="settings-feedback" id="passwordFeedback" aria-live="polite"></div>
+      <p class="notice" data-fr="Important : cette version fonctionne uniquement en local. Le mot de passe est enregistré dans le stockage de ce navigateur ; il ne peut pas être synchronisé entre appareils et ce n'est pas un système de compte sécurisé côté serveur." data-en="Important: this version runs locally only. Your password is stored in this browser; it cannot sync across devices and this is not a secure server-side account system.">Important : cette version fonctionne uniquement en local. Le mot de passe est enregistré dans le stockage de ce navigateur ; il ne peut pas être synchronisé entre appareils et ce n'est pas un système de compte sécurisé côté serveur.</p>
+     </div>
+     <div class="card settings-card">
+      <h3 data-fr="Session et données" data-en="Session and data">Session et données</h3>
+      <p class="muted" data-fr="Tu peux réinitialiser les préférences ou fermer ta session." data-en="You can reset your preferences or sign out.">Tu peux réinitialiser les préférences ou fermer ta session.</p>
+      <div class="actions"><button class="secondary" id="resetApp" type="button" data-fr="Réinitialiser les préférences" data-en="Reset preferences">Réinitialiser les préférences</button><button class="secondary" id="logoutButton" type="button" data-fr="Se déconnecter" data-en="Sign out">Se déconnecter</button></div>
+      <div class="settings-feedback" id="sessionFeedback" aria-live="polite"></div>
+     </div>
+    </div>
+   </section>
+   <section class="page" id="page-about"><h1 class="page-title">À propos</h1><div class="card"><p>SCARY INTELLIGENCE est une interface de démonstration pour organiser des notes et accéder à des ressources publiques.</p><p class="muted">Les services externes s'ouvrent sur leurs sites officiels. Aucune recherche d'informations privées n'est effectuée.</p></div></section>
+  </main>
+ </div>
+</div>
+<script>
+
+const authScreen=document.getElementById('authScreen');
+let authMode='register';
+const ACCOUNT_KEY='scary_intelligence_local_account_v1';
+function setAuthMode(mode){
+ authMode=mode;
+ const registering=mode==='register';
+ document.getElementById('authTitle').textContent=registering?'Créer ton compte':'Connexion';
+ document.getElementById('authSubtitle').textContent=registering?'Choisis un pseudo et un mot de passe pour accéder à ton espace.':'Entre ton pseudo et ton mot de passe.';
+ document.getElementById('authSubmit').textContent=registering?'Créer mon compte →':'Se connecter →';
+ document.getElementById('authPassword').autocomplete=registering?'new-password':'current-password';
+ document.getElementById('authSwitchText').textContent=registering?'Tu as déjà un compte ?':'Pas encore de compte ?';
+ document.getElementById('authSwitch').textContent=registering?'Se connecter':'Créer un compte';
+ document.getElementById('authMessage').textContent='';
+}
+document.getElementById('authSwitch').addEventListener('click',()=>setAuthMode(authMode==='register'?'login':'register'));
+async function passwordDigest(password,salt){
+ const bytes=new TextEncoder().encode(salt+':'+password);
+ const hash=await crypto.subtle.digest('SHA-256',bytes);
+ return Array.from(new Uint8Array(hash)).map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+document.getElementById('authForm').addEventListener('submit',async event=>{
+ event.preventDefault();
+ const username=document.getElementById('authUsername').value.trim();
+ const password=document.getElementById('authPassword').value;
+ const message=document.getElementById('authMessage');
+ if(!/^[a-zA-Z0-9_-]{3,20}$/.test(username)){message.textContent='Le pseudo doit contenir 3 à 20 caractères : lettres, chiffres, _ ou -.';return}
+ if(!/^[a-zA-Z0-9]{4,16}$/.test(password)){message.textContent='Le mot de passe doit contenir uniquement des lettres ou chiffres, entre 4 et 16 caractères.';return}
+ if(!window.crypto?.subtle){message.textContent='Ce navigateur ne prend pas en charge cette démo de compte.';return}
+ let account=null;
+ try{account=JSON.parse(localStorage.getItem(ACCOUNT_KEY)||'null')}catch(e){}
+ if(authMode==='register'){
+  if(account){message.textContent='Un compte existe déjà dans ce navigateur. Connecte-toi.';return}
+  const salt=Array.from(crypto.getRandomValues(new Uint8Array(16))).map(x=>x.toString(16).padStart(2,'0')).join('');
+  const digest=await passwordDigest(password,salt);
+  localStorage.setItem(ACCOUNT_KEY,JSON.stringify({username,salt,digest}));
+  localStorage.setItem('scary_intelligence_session',username);
+  authScreen.classList.add('hidden');document.getElementById('landing').classList.remove('hidden');
+ }else{
+  if(!account||account.username.toLowerCase()!==username.toLowerCase()){message.textContent='Compte introuvable dans ce navigateur.';return}
+  const digest=await passwordDigest(password,account.salt);
+  if(digest!==account.digest){message.textContent='Mot de passe incorrect.';return}
+  localStorage.setItem('scary_intelligence_session',account.username);
+  authScreen.classList.add('hidden');document.getElementById('landing').classList.remove('hidden');
+ }
+});
+
+const landing=document.getElementById('landing'),app=document.getElementById('app');
+function enterApp(){landing.classList.add('hidden');app.classList.remove('hidden');window.scrollTo(0,0)}
+document.getElementById('start').addEventListener('click',enterApp);
+document.getElementById('headerStart').addEventListener('click',enterApp);
+document.getElementById('backHome').addEventListener('click',()=>{app.classList.add('hidden');landing.classList.remove('hidden');window.scrollTo(0,0)});
+document.getElementById('backHome').addEventListener('dblclick',()=>{localStorage.removeItem('scary_intelligence_session');landing.classList.add('hidden');authScreen.classList.remove('hidden');setAuthMode('login')});
+document.getElementById('discordInfo').addEventListener('click',()=>{enterApp();showPage('discord')});
+function showPage(name){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const page=document.getElementById('page-'+name);if(page)page.classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===name));document.getElementById('sidebar').classList.remove('open');}
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.goto)));
+document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('open'));
+document.querySelectorAll('[data-url]').forEach(b=>b.addEventListener('click',()=>window.open(b.dataset.url,'_blank','noopener,noreferrer')));
+let notes=0;
+function getId(){return (document.getElementById('discordId').value||'').trim().replace(/\s+/g,'')}
+function validDiscordId(id){return /^\d{17,20}$/.test(id)}
+function showDiscordFormat(){
+ const id=getId(),out=document.getElementById('discordResult');
+ if(!validDiscordId(id)){out.textContent='ID invalide : saisis uniquement 17 à 20 chiffres.';return false;}
+ out.textContent='✓ Format numérique valide ('+id.length+' chiffres). Cela ne confirme pas que le compte existe.';
+ return true;
+}
+document.getElementById('checkDiscord').addEventListener('click',event=>{event.preventDefault();showDiscordFormat();});
+document.getElementById('openDiscord').addEventListener('click',event=>{
+ event.preventDefault();if(!showDiscordFormat())return;
+ window.location.href='https://discord.com/users/'+getId();
+});
+document.getElementById('discordId').addEventListener('keydown',event=>{
+ if(event.key==='Enter'){event.preventDefault();showDiscordFormat();}
+});
+document.getElementById('openSocial').type='button';
+document.getElementById('openSocial').addEventListener('click',event=>{
+ event.preventDefault();
+ const platform=(document.getElementById('platform').value||'').trim().toLowerCase();
+ const raw=(document.getElementById('handle').value||'').trim();
+ const username=raw.replace(/^@/,'').replace(/\s+/g,'');
+ const out=document.getElementById('socialResult');
+ if(!platform){out.textContent='Choisis une plateforme dans la liste.';return;}
+ if(!username){out.textContent='Entre un pseudo public.';document.getElementById('handle').focus();return;}
+ if(!/^[a-zA-Z0-9._-]{2,40}$/.test(username)){out.textContent='Pseudo invalide : 2 à 40 lettres, chiffres, points, tirets ou tirets bas.';return;}
+ const u=encodeURIComponent(username);
+ const urls={
+  tiktok:'https://www.tiktok.com/@'+u, instagram:'https://www.instagram.com/'+u+'/',
+  youtube:'https://www.youtube.com/@'+u, x:'https://x.com/'+u,
+  twitch:'https://www.twitch.tv/'+u, reddit:'https://www.reddit.com/user/'+u+'/',
+  pinterest:'https://www.pinterest.com/'+u+'/', snapchat:'https://www.snapchat.com/add/'+u,
+  facebook:'https://www.facebook.com/'+u, github:'https://github.com/'+u, telegram:'https://t.me/'+u
+ };
+ if(!urls[platform]){out.textContent='Plateforme non prise en charge.';return;}
+ out.textContent='Ouverture du profil public @'+username+' sur '+platform+'…';
+ window.location.href=urls[platform];
+});
+document.getElementById('handle').addEventListener('keydown',event=>{
+ if(event.key==='Enter'){event.preventDefault();document.getElementById('openSocial').click();}
+});
+function getFiveMCode(){
+ let v=(document.getElementById('fivemCode').value||'').trim();
+ return v.replace(/^https?:\/\/cfx\.re\/join\//i,'').replace(/^cfx\.re\/join\//i,'').replace(/^join\//i,'').replace(/^fivem:\/\/connect\//i,'').replace(/\/+$/,'').trim();
+}
+function validateFiveMCode(){
+ const code=getFiveMCode();
+ if(!/^[a-zA-Z0-9]{3,32}$/.test(code)){document.getElementById('fivemResult').textContent='Code CFX non reconnu. Colle le code court ou un lien cfx.re/join/…';return null;}
+ return code.toLowerCase();
+}
+document.getElementById('openFiveM').addEventListener('click',event=>{
+ event.preventDefault();const code=validateFiveMCode();if(!code)return;
+ document.getElementById('fivemResult').textContent='Ouverture du serveur CFX…';
+ window.location.href='https://cfx.re/join/'+encodeURIComponent(code);
+});
+document.getElementById('openFiveMApi').addEventListener('click',event=>{
+ event.preventDefault();const code=validateFiveMCode();if(!code)return;
+ document.getElementById('fivemResult').textContent='Ouverture de la réponse API…';
+ window.location.href='https://frontend.cfx-services.net/api/servers/single/'+encodeURIComponent(code);
+});
+document.getElementById('fivemCode').addEventListener('keydown',event=>{
+ if(event.key==='Enter'){event.preventDefault();document.getElementById('openFiveMApi').click();}
+});
+
+function renderDirectCards(out, headingText, entries, noteText){
+ out.replaceChildren();
+ const heading=document.createElement('div');
+ heading.className='result-heading';
+ heading.textContent=headingText;
+ out.appendChild(heading);
+ const note=document.createElement('p');
+ note.className='muted';
+ note.textContent=noteText;
+ out.appendChild(note);
+ const list=document.createElement('div');
+ list.className='site-results';
+ list.style.display='grid';
+ list.style.gridTemplateColumns='repeat(auto-fit,minmax(230px,1fr))';
+ list.style.gap='10px';
+ entries.forEach(item=>{
+  const card=document.createElement('a');
+  card.className='site-result-card';
+  card.href=item.url;
+  card.target='_blank';
+  card.rel='noopener noreferrer';
+  card.style.cssText='display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #3b2a56;border-radius:12px;background:rgba(255,255,255,.035);min-width:0;color:white;text-decoration:none';
+  card.title='Ouvrir directement '+item.name;
+  const logo=document.createElement('img');
+  logo.alt='';
+  logo.width=34;logo.height=34;
+  logo.loading='lazy';
+  logo.style.cssText='width:34px;height:34px;object-fit:contain;border-radius:8px;flex:0 0 34px;background:#fff;padding:3px';
+  logo.src='https://www.google.com/s2/favicons?domain='+encodeURIComponent(item.domain)+'&sz=64';
+  const info=document.createElement('div');
+  info.style.cssText='flex:1;min-width:0';
+  const title=document.createElement('strong');
+  title.textContent=item.name;
+  const desc=document.createElement('div');
+  desc.className='muted';
+  desc.style.fontSize='12px';
+  desc.textContent=item.desc;
+  info.append(title,desc);
+  const action=document.createElement('span');
+  action.className='secondary';
+  action.textContent='Ouvrir ↗';
+  action.style.cssText='white-space:nowrap;text-decoration:none;padding:9px 11px;border-radius:9px;color:white;display:inline-block';
+  card.append(logo,info,action);
+  list.appendChild(card);
+ });
+ out.appendChild(list);
+}
+
+document.getElementById('searchPersonal').addEventListener('click',(event)=>{
+ event.preventDefault();
+ const first=(document.getElementById('pi-prenom')?.value||'').trim();
+ const last=(document.getElementById('pi-nom')?.value||'').trim();
+ const out=document.getElementById('personalResult');
+ const fullName=[first,last].filter(Boolean).join(' ');
+ if(!fullName){out.textContent='Entre au moins un nom ou un prénom.';return}
+ const q=encodeURIComponent('"'+fullName+'"');
+ const entries=[
+  {name:'Google',domain:'google.com',url:'https://www.google.com/search?q='+q,desc:'Résultats web publics'},
+  {name:'Bing',domain:'bing.com',url:'https://www.bing.com/search?q='+q,desc:'Résultats web publics'},
+  {name:'DuckDuckGo',domain:'duckduckgo.com',url:'https://duckduckgo.com/?q='+q,desc:'Résultats web publics'},
+  {name:'Wikipedia',domain:'wikipedia.org',url:'https://fr.wikipedia.org/w/index.php?search='+encodeURIComponent(fullName),desc:'Articles publics'},
+  {name:'Instagram',domain:'instagram.com',url:'https://www.google.com/search?q='+encodeURIComponent('site:instagram.com "'+fullName+'"'),desc:'Résultats publics indexés sur Instagram'},
+  {name:'Facebook',domain:'facebook.com',url:'https://www.google.com/search?q='+encodeURIComponent('site:facebook.com "'+fullName+'"'),desc:'Résultats publics indexés sur Facebook'},
+  {name:'TikTok',domain:'tiktok.com',url:'https://www.google.com/search?q='+encodeURIComponent('site:tiktok.com "'+fullName+'"'),desc:'Résultats publics indexés sur TikTok'},
+  {name:'YouTube',domain:'youtube.com',url:'https://www.youtube.com/results?search_query='+encodeURIComponent(fullName),desc:'Résultats YouTube'},
+  {name:'X / Twitter',domain:'x.com',url:'https://www.google.com/search?q='+encodeURIComponent('site:x.com "'+fullName+'"'),desc:'Résultats publics indexés sur X'},
+  {name:'LinkedIn',domain:'linkedin.com',url:'https://www.google.com/search?q='+encodeURIComponent('site:linkedin.com/in "'+fullName+'"'),desc:'Pages professionnelles publiques'},
+  {name:'Reddit',domain:'reddit.com',url:'https://www.reddit.com/search/?q='+encodeURIComponent(fullName),desc:'Résultats Reddit publics'},
+  {name:'Twitch',domain:'twitch.tv',url:'https://www.google.com/search?q='+encodeURIComponent('site:twitch.tv "'+fullName+'"'),desc:'Chaînes publiques indexées'},
+  {name:'Pinterest',domain:'pinterest.com',url:'https://www.pinterest.com/search/users/?q='+encodeURIComponent(fullName),desc:'Recherche de profils publics'},
+  {name:'Snapchat',domain:'snapchat.com',url:'https://www.google.com/search?q='+encodeURIComponent('site:snapchat.com "'+fullName+'"'),desc:'Résultats publics indexés'}
+ ];
+ renderDirectCards(out,'Liens directs pour : '+fullName,entries,'Chaque carte ouvre directement le site ou ses résultats de recherche. Un résultat ne prouve pas que le profil appartient à la personne recherchée.');
+});
+
+document.getElementById('searchHandle').addEventListener('click',(event)=>{
+ event.preventDefault();
+ const handle=(document.getElementById('pi-handle')?.value||'').trim().replace(/^@/,'').replace(/\s+/g,'');
+ const out=document.getElementById('personalResult');
+ if(!handle){out.textContent='Entre un pseudo public, sans espace.';return}
+ if(!/^[a-zA-Z0-9._-]{2,40}$/.test(handle)){out.textContent='Format de pseudo non reconnu. Utilise seulement des lettres, chiffres, points, tirets ou tirets bas.';return}
+ const h=encodeURIComponent(handle);
+ const entries=[
+  {name:'Instagram',domain:'instagram.com',url:'https://www.instagram.com/'+h+'/',desc:'Lien direct vers le profil'},
+  {name:'TikTok',domain:'tiktok.com',url:'https://www.tiktok.com/@'+h,desc:'Lien direct vers le profil'},
+  {name:'YouTube',domain:'youtube.com',url:'https://www.youtube.com/@'+h,desc:'Lien direct vers la chaîne'},
+  {name:'X / Twitter',domain:'x.com',url:'https://x.com/'+h,desc:'Lien direct vers le profil'},
+  {name:'Twitch',domain:'twitch.tv',url:'https://www.twitch.tv/'+h,desc:'Lien direct vers la chaîne'},
+  {name:'Reddit',domain:'reddit.com',url:'https://www.reddit.com/user/'+h+'/',desc:'Lien direct vers le profil'},
+  {name:'Pinterest',domain:'pinterest.com',url:'https://www.pinterest.com/'+h+'/',desc:'Lien direct vers le profil'},
+  {name:'Snapchat',domain:'snapchat.com',url:'https://www.snapchat.com/add/'+h,desc:'Lien direct vers le profil public'},
+  {name:'Facebook',domain:'facebook.com',url:'https://www.facebook.com/'+h,desc:'Lien direct si le pseudo correspond à une adresse publique'},
+  {name:'GitHub',domain:'github.com',url:'https://github.com/'+h,desc:'Lien direct vers le compte'},
+  {name:'Telegram',domain:'t.me',url:'https://t.me/'+h,desc:'Lien direct vers le profil ou canal public'},
+  {name:'Google',domain:'google.com',url:'https://www.google.com/search?q='+encodeURIComponent('"'+handle+'"'),desc:'Chercher ce pseudo sur le web'}
+ ];
+ renderDirectCards(out,'Liens directs pour le pseudo : @'+handle,entries,'Les cartes ouvrent directement les adresses publiques construites avec ce pseudo. Le site peut afficher un profil introuvable si ce pseudo n’existe pas sur cette plateforme. Un même pseudo peut appartenir à des personnes différentes.');
+});
+document.getElementById('clearPersonal').addEventListener('click',()=>{
+ ['pi-nom','pi-prenom','pi-ville','pi-postal','pi-tel','pi-age','pi-date','pi-email','pi-handle'].forEach(id=>document.getElementById(id).value='');
+ document.getElementById('personalResult').textContent='Champs effacés.';
+});
+document.getElementById('resetApp').addEventListener('click',()=>{localStorage.removeItem(PREFS_KEY);document.getElementById('themeColor').value='purple';document.getElementById('languageSelect').value='fr';applyTheme('purple');applyLanguage('fr');showPage('home');});
+
+// Préférences et gestion du compte local
+const PREFS_KEY='scary_intelligence_preferences_v1';
+const themePresets={
+ purple:{bg:'#080611',panel:'#100c20',panel2:'#17102b',line:'#302052',accent:'#8b35ff',accent2:'#b16cff'},
+ blue:{bg:'#070b16',panel:'#0d1425',panel2:'#142039',line:'#243b60',accent:'#3478ff',accent2:'#72a5ff'},
+ red:{bg:'#120809',panel:'#1c0e11',panel2:'#291317',line:'#54252e',accent:'#e0445c',accent2:'#ff8191'},
+ green:{bg:'#07110d',panel:'#0d1a14',panel2:'#13271d',line:'#254b37',accent:'#20a96b',accent2:'#63dda0'},
+ pink:{bg:'#130914',panel:'#1d1020',panel2:'#2a1730',line:'#57305f',accent:'#d946a8',accent2:'#ff8bd5'}
+};
+function loadPrefs(){try{return JSON.parse(localStorage.getItem(PREFS_KEY)||'{}')}catch(e){return {}}}
+function applyTheme(name){const t=themePresets[name]||themePresets.purple;const root=document.documentElement;root.style.setProperty('--bg',t.bg);root.style.setProperty('--panel',t.panel);root.style.setProperty('--panel2',t.panel2);root.style.setProperty('--line',t.line);root.style.setProperty('--purple',t.accent);root.style.setProperty('--purple2',t.accent2);let style=document.getElementById('dynamicTheme');if(!style){style=document.createElement('style');style.id='dynamicTheme';document.head.appendChild(style)}style.textContent='.app,body{background:'+t.bg+'!important}.card,.benefit,.tile,.auth-card,.sidebar,.appbar,.welcome{background-color:'+t.panel+'!important;border-color:'+t.line+'!important}.navbtn:hover,.navbtn.active{background:linear-gradient(90deg,'+t.accent+'55,'+t.panel2+')!important}.navbtn.active{box-shadow:inset 3px 0 '+t.accent2+'!important}.brandmark,.brand em,h1 span,.benefit .ico,.welcome .crown{color:'+t.accent2+'!important}.primary{background:linear-gradient(100deg,'+t.accent+','+t.accent2+')!important;border-color:'+t.accent2+'!important}';}
+const translations={
+ 'nav-home':['⌂ Accueil','⌂ Home'],'nav-personal':['♙ Personal Info','♙ Personal info'],'nav-social':['◎ Réseaux sociaux','◎ Social networks'],'nav-discord':['◉ Discord ID','◉ Discord ID'],'nav-fivem':['▣ FiveM API','▣ FiveM API'],'nav-ip':['⌖ Adresse IP','⌖ IP address'],'nav-search':['⌕ Recherche avancée','⌕ Advanced search'],'nav-settings':['⚙ Paramètres','⚙ Settings'],'nav-about':['ⓘ À propos','ⓘ About'],
+ 'home-title':['Tableau de bord','Dashboard'],'home-sub':['Bienvenue dans ton espace SCARY INTELLIGENCE.','Welcome to your SCARY INTELLIGENCE workspace.'],'personal-title':['Personal Info','Personal Info'],'personal-sub':['Renseigne les informations dans des champs simples. La recherche publique utilise uniquement le nom et le prénom.','Enter information in the fields. Public searches use only first and last name.'],'social-title':['Réseaux sociaux','Social networks'],'social-sub':['Ouvre directement les pages publiques d’un compte.','Open a public account page directly.'],'discord-title':['Discord ID','Discord ID'],'discord-sub':['Contrôle du format d’un identifiant numérique.','Check the format of a numeric user ID.'],'fivem-title':['FiveM API','FiveM API'],'fivem-sub':['Consulte les informations publiques d’un serveur avec son code CFX.','View public server information using its CFX code.'],'ip-title':['Adresse IP','IP address'],'ip-sub':['Consulte une zone géographique approximative à partir d’une adresse IP que tu es autorisé à vérifier.','View an approximate location from an IP address you are authorized to check.'],'search-title':['Recherche avancée','Advanced search'],'search-sub':['Raccourcis vers des recherches ouvertes et non sensibles.','Shortcuts to open, non-sensitive searches.'],'about-title':['À propos','About'],'quit':['Quitter','Back']
+};
+function applyLanguage(lang){
+ document.documentElement.lang=lang==='en'?'en':'fr';
+ document.querySelectorAll('#page-settings [data-fr][data-en]').forEach(el=>{el.textContent=el.dataset[lang==='en'?'en':'fr']});
+ const navKeys=['nav-home','nav-personal','nav-social','nav-discord','nav-fivem','nav-ip','nav-search','nav-settings','nav-about'];
+ document.querySelectorAll('.navbtn').forEach((el,i)=>{const pair=translations[navKeys[i]];if(pair)el.textContent=pair[lang==='en'?1:0]});
+ const pageKeys={home:['home-title','home-sub'],personal:['personal-title','personal-sub'],social:['social-title','social-sub'],discord:['discord-title','discord-sub'],fivem:['fivem-title','fivem-sub'],ip:['ip-title','ip-sub'],search:['search-title','search-sub']};
+ Object.entries(pageKeys).forEach(([page,keys])=>{const title=document.querySelector('#page-'+page+' .page-title'),sub=document.querySelector('#page-'+page+' .page-sub');if(title)title.textContent=translations[keys[0]][lang==='en'?1:0];if(sub)sub.textContent=translations[keys[1]][lang==='en'?1:0]});
+ const aboutTitle=document.querySelector('#page-about .page-title');if(aboutTitle)aboutTitle.textContent=translations['about-title'][lang==='en'?1:0];
+ document.getElementById('backHome').textContent=lang==='en'?'Sign out':'Quitter';
+}
+function currentAccount(){try{return JSON.parse(localStorage.getItem(ACCOUNT_KEY)||'null')}catch(e){return null}}
+function refreshAccountSettings(){const account=currentAccount();document.getElementById('settingsUsername').textContent=account?.username||'—';}
+function initSettings(){const prefs=loadPrefs();const theme=prefs.theme||'purple',lang=prefs.language||'fr';document.getElementById('themeColor').value=theme;document.getElementById('languageSelect').value=lang;applyTheme(theme);applyLanguage(lang);refreshAccountSettings();}
+document.getElementById('themeColor').addEventListener('change',e=>{const p=loadPrefs();p.theme=e.target.value;localStorage.setItem(PREFS_KEY,JSON.stringify(p));applyTheme(p.theme)});
+document.getElementById('languageSelect').addEventListener('change',e=>{const p=loadPrefs();p.language=e.target.value;localStorage.setItem(PREFS_KEY,JSON.stringify(p));applyLanguage(p.language)});
+document.getElementById('changeUsername').addEventListener('click',()=>{
+ const account=currentAccount(),next=document.getElementById('newUsername').value.trim(),out=document.getElementById('usernameFeedback');
+ if(!account){out.textContent='Aucun compte local trouvé.';return}
+ if(!/^[a-zA-Z0-9_-]{3,20}$/.test(next)){out.textContent='Le pseudo doit contenir 3 à 20 caractères : lettres, chiffres, _ ou -.';return}
+ account.username=next;localStorage.setItem(ACCOUNT_KEY,JSON.stringify(account));localStorage.setItem('scary_intelligence_session',next);document.getElementById('newUsername').value='';refreshAccountSettings();out.textContent='Pseudo modifié.';
+});
+document.getElementById('changePassword').addEventListener('click',async()=>{
+ const account=currentAccount(),current=document.getElementById('currentPassword').value,next=document.getElementById('newPassword').value,confirm=document.getElementById('confirmPassword').value,out=document.getElementById('passwordFeedback');
+ if(!account){out.textContent='Aucun compte local trouvé.';return}
+ if(!/^[a-zA-Z0-9]{4,16}$/.test(next)){out.textContent='Le nouveau mot de passe doit contenir 4 à 16 lettres ou chiffres.';return}
+ if(next!==confirm){out.textContent='Les deux nouveaux mots de passe ne correspondent pas.';return}
+ if(!window.crypto?.subtle){out.textContent='Fonction non prise en charge par ce navigateur.';return}
+ const currentDigest=await passwordDigest(current,account.salt);if(currentDigest!==account.digest){out.textContent='Le mot de passe actuel est incorrect.';return}
+ const salt=Array.from(crypto.getRandomValues(new Uint8Array(16))).map(x=>x.toString(16).padStart(2,'0')).join('');account.salt=salt;account.digest=await passwordDigest(next,salt);localStorage.setItem(ACCOUNT_KEY,JSON.stringify(account));
+ ['currentPassword','newPassword','confirmPassword'].forEach(id=>document.getElementById(id).value='');out.textContent='Mot de passe modifié.';
+});
+document.getElementById('logoutButton').addEventListener('click',()=>{localStorage.removeItem('scary_intelligence_session');app.classList.add('hidden');landing.classList.add('hidden');authScreen.classList.remove('hidden');setAuthMode('login');document.getElementById('authUsername').value='';document.getElementById('authPassword').value='';});
+initSettings();
+
+
+function isValidIpAddress(value){
+ const v=value.trim();
+ // IPv4 validation
+ if(/^\d{1,3}(\.\d{1,3}){3}$/.test(v)) return v.split('.').every(part=>Number(part)>=0 && Number(part)<=255);
+ // Practical IPv6 syntax check (full normalization is handled by the lookup service)
+ return v.includes(':') && /^[0-9a-fA-F:]+$/.test(v) && v.length<=45;
+}
+document.getElementById('lookupIp').addEventListener('click',async event=>{
+ event.preventDefault();
+ const ip=(document.getElementById('ipAddress').value||'').trim();
+ const out=document.getElementById('ipResult');
+ const mapOut=document.getElementById('ipMapLink');
+ mapOut.replaceChildren();
+ if(!isValidIpAddress(ip)){out.textContent='Adresse IP invalide. Vérifie les chiffres ou les caractères de l’adresse.';return;}
+ out.textContent='Recherche de la zone approximative…';
+ try{
+  const response=await fetch('https://ipapi.co/'+encodeURIComponent(ip)+'/json/');
+  if(!response.ok) throw new Error('Service indisponible');
+  const data=await response.json();
+  if(data.error) throw new Error(data.reason||'Adresse IP non reconnue');
+  const lat=Number(data.latitude), lon=Number(data.longitude);
+  if(!Number.isFinite(lat)||!Number.isFinite(lon)) throw new Error('Coordonnées non disponibles');
+  const parts=[data.city,data.region,data.country_name].filter(Boolean);
+  out.textContent='Zone approximative : '+(parts.join(', ')||'non disponible')+' — IP : '+ip;
+  const a=document.createElement('a');
+  a.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(lat+','+lon);
+  a.target='_blank';a.rel='noopener noreferrer';
+  a.className='primary';a.style.cssText='display:inline-block;text-decoration:none';
+  a.textContent='Voir la zone approximative sur Google Maps ↗';
+  mapOut.appendChild(a);
+ }catch(error){
+  out.textContent='Impossible de récupérer la zone : '+(error.message||'service indisponible')+'. Réessaie plus tard.';
+ }
+});
+document.getElementById('ipAddress').addEventListener('keydown',event=>{
+ if(event.key==='Enter'){event.preventDefault();document.getElementById('lookupIp').click();}
+});
+document.getElementById('clearIp').addEventListener('click',event=>{
+ event.preventDefault();
+ document.getElementById('ipAddress').value='';
+ document.getElementById('ipResult').textContent='La recherche affiche au mieux une ville ou une région, jamais une adresse personnelle exacte.';
+ document.getElementById('ipMapLink').replaceChildren();
+});
+document.getElementById('searchIpCity').addEventListener('click',event=>{
+ event.preventDefault();
+ const city=(document.getElementById('ipCity').value||'').trim();
+ if(!city){document.getElementById('ipResult').textContent='Entre une ville ou un lieu.';return;}
+ window.location.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(city);
+});
+document.getElementById('ipCity').addEventListener('keydown',event=>{
+ if(event.key==='Enter'){event.preventDefault();document.getElementById('searchIpCity').click();}
+});
+</script>
+</body>
+</html>
